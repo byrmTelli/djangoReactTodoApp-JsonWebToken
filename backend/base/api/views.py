@@ -9,6 +9,8 @@ from base.models import Plan
 
 from base.serializers import ProfileSerializer,PlanSerializer
 
+from rest_framework import status
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -34,7 +36,6 @@ def get_profile(request):
 
 @api_view(['GET'])
 
-@permission_classes([IsAuthenticated])
 def get_plan(request):
     plan = Plan.objects.all()
     plan_serializer =PlanSerializer(plan,many=True)
@@ -50,3 +51,38 @@ def add_plan(request):
         serializer.save()
         
     return Response(serializer.data)
+
+
+@api_view(['PUT'])
+def edit_plan(request,id):
+    try:
+        plan = Plan.objects.get(pk=id)
+    except Plan.DoesNotExist:
+        return Response({'error': 'Plan not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method in ['PUT']:
+        serializer = PlanSerializer(plan, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    return Response({'message': 'Use PUT request to update the plan'})
+
+
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_plan(request, id):
+    try:
+        plan = Plan.objects.get(pk=id)
+    except Plan.DoesNotExist:
+        return Response({'error': 'Plan not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'DELETE':
+        plan.delete()
+        return Response({'message': 'Plan deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+
+    return Response({'message': 'Use DELETE request to delete the plan'})
+    

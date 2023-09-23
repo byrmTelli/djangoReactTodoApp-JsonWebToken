@@ -6,7 +6,7 @@ const Header = () => {
     let { user, logoutUser } = useContext(AuthContext)
 
     return (
-        <div className='w-full flex items-center justify-center bg-red-600 text-white h-[60px] gap-4'>
+        <div className='w-full flex items-center justify-center bg-[#113f67] text-white h-[60px] gap-4'>
             <Link to="/">Home</Link>
             <span> | </span>
             {user ? (

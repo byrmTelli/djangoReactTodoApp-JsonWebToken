@@ -14,4 +14,8 @@ class Profile(models.Model):
 
 class Plan(models.Model):
     title = models.CharField(max_length=255)
+    description=models.TextField(null=True)
     creator = models.ForeignKey(User,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.title

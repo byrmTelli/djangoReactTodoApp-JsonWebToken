@@ -12,4 +12,6 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('data/',views.get_plan,name='get_plan'),
     path('data/add/',views.add_plan,name='add_plan'),
+    path('data/edit/<int:id>/',views.edit_plan,name="edit_plan"),
+    path('data/delete/<int:id>/',views.delete_plan,name="delete_plan")
 ]
