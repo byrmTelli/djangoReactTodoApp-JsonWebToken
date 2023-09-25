@@ -7,7 +7,7 @@ import LoginPage from './pages/LoginPage'
 import Header from './components/Header'
 
 import PrivateRoute from './utils/PrivateRoute'
-import EditPage from './pages/EditPage'
+
 
 
 function App() {
@@ -21,11 +21,6 @@ function App() {
                         <PrivateRoute>
                             <HomePage/>
                         </PrivateRoute>}/>
-                    <Route path="/edit" element={
-                        <PrivateRoute>
-                            <EditPage/>
-                        </PrivateRoute>}/>
-
                     <Route path="/login" element={<LoginPage/>}/>
                 </Routes>
                 </AuthProvider>

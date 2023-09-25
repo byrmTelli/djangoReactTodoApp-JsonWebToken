@@ -16,7 +16,7 @@ export const AuthProvider = ({children}) => {
       });
       
     
-      let [loading, setLoading] = useState(true)
+    let [loading, setLoading] = useState(true)
 
     const navigate = useNavigate()
    
@@ -45,6 +45,7 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+
     let logoutUser = (e) => {
         e.preventDefault()
         localStorage.removeItem('authTokens')
@@ -52,7 +53,7 @@ export const AuthProvider = ({children}) => {
         setUser(null)
         navigate('/login')
     }
-
+    //Token updating via sending post request to the related url.
     const updateToken = async () => {
         const response = await fetch('http://127.0.0.1:8000/api/token/refresh/', {
             method: 'POST',
@@ -76,6 +77,8 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+
+    //Necessary variables selected here to export.
     let contextData = {
         user:user,
         authTokens:authTokens,
@@ -83,8 +86,9 @@ export const AuthProvider = ({children}) => {
         logoutUser:logoutUser,
     }
 
+    //To handle jwt resreshing.
     useEffect(()=>{
-        const REFRESH_INTERVAL = 1000 * 30 * 1 // 4 minutes
+        const REFRESH_INTERVAL = 1000 * 30 * 1 // 30 Second
         let interval = setInterval(() => {
             if(authTokens){
                 updateToken()

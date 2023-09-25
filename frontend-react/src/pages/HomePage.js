@@ -40,11 +40,11 @@ const HomePage = () => {
                     getData()
                     navigate('/');
                 } else {
-                    // İstek başarısızsa, hata mesajını işleyin veya hata durumunu ele alın
-                    console.error('Veri ekleme hatası:', response.statusText);
+                    // If request fails.
+                    console.error('Request failed. Reason: ', response.statusText);
                 }
             } catch (error) {
-                console.error('Veri ekleme hatası:', error);
+                console.error('Error:', error);
             }
         }
 
@@ -67,11 +67,11 @@ const HomePage = () => {
                 getData()
                 navigate('/');
             } else {
-                // İstek başarısızsa, hata mesajını işleyin veya hata durumunu ele alın
-                console.error('Veri ekleme hatası:', response.statusText);
+                // If request fails.
+                console.error('Request failed. Reson:', response.statusText);
             }
         } catch (error) {
-            console.error('Veri ekleme hatası:', error);
+            console.error('Error:', error);
         }
         e.target.reset()
     };
@@ -112,11 +112,11 @@ const HomePage = () => {
         try {
             const formData = new FormData(e.target);
     
-            // Kontrol etmek istediğiniz alanları belirleyin
+            //Selecting related sections of form here to modify.
             const newTitle = formData.get('title');
             const newDescription = formData.get('description');
-    
-            // Sadece title veya description alanını güncellemek istiyorsanız, koşullu bir şekilde güncelleme yapın
+
+            //dataToUpdate is an empty object at the beginning.
             const dataToUpdate = {};
             
             if (newTitle) {
@@ -133,7 +133,7 @@ const HomePage = () => {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + String(authTokens.access)
                 },
-                body: JSON.stringify(dataToUpdate) // Sadece güncellenmesi gereken alanları içerir
+                body: JSON.stringify(dataToUpdate)
             });
     
             if (response.ok) {
@@ -150,7 +150,7 @@ const HomePage = () => {
     
     
 
-
+    //Shows detail of ToDo
     const handleToDoClick = (index) => {
     setOpenIndex(index === openIndex ? null : index);
     setEditIndex(null);
@@ -158,7 +158,7 @@ const HomePage = () => {
   };
 
 
-
+  //Shows Edit Area of ToDo
   const handleTodoEditClick = (index) => {
       setEditIndex(index === editIndex ? null : index);
       setOpenIndex(null);
