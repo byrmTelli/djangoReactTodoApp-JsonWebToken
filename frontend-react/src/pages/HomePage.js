@@ -192,7 +192,7 @@ const HomePage = () => {
                 planData.map((item,key)=>(
                     <div className='w-full'>
                         <div className='w-full flex relative items-center p-2 border bg-[#113f67] text-white'>
-                            <p key={key}>{item.title} | id: {item.id}</p>
+                            <p key={key}>{item.title}</p>
                             <div className="absolute right-3 flex gap-3 items-center">
                             <BiEdit className='hover:text-lg' onClick={()=> handleTodoEditClick(key)} />
                             <FaEye className='hover:text-lg' onClick={()=> handleToDoClick(key)}/>
