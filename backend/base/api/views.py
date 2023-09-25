@@ -11,6 +11,10 @@ from base.serializers import ProfileSerializer,PlanSerializer
 
 from rest_framework import status
 
+
+
+
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -35,7 +39,7 @@ def get_profile(request):
 
 
 @api_view(['GET'])
-
+@permission_classes([IsAuthenticated])
 def get_plan(request):
     plan = Plan.objects.all()
     plan_serializer =PlanSerializer(plan,many=True)
@@ -53,7 +57,10 @@ def add_plan(request):
     return Response(serializer.data)
 
 
+
+
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def edit_plan(request,id):
     try:
         plan = Plan.objects.get(pk=id)
